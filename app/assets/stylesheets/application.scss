@@ -24,3 +24,20 @@ body {
   main {
     flex: 1 0 auto;
   }
+
+  .share-buttons {
+    a {
+    margin: 10px;
+        &:hover {
+            cursor: pointer;
+            }
+    }
+
+    p {
+        padding: 0 0 1em 0;
+        margin: 0;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: .8em;
+    }
+}

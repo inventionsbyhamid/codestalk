@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @codechef_id.username %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @codechef_id.user.email %>
+</p>
+
+<%= link_to 'Edit', edit_codechef_id_path(@codechef_id) %> |
+<%= link_to 'Back', codechef_ids_path %>

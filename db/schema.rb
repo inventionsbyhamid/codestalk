@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160221141954) do
+ActiveRecord::Schema.define(version: 20160221181100) do
+
+  create_table "codechef_ids", force: :cascade do |t|
+    t.string   "username"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "codechef_ids", ["user_id"], name: "index_codechef_ids_on_user_id"
+
+  create_table "ids", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "ids", ["user_id"], name: "index_ids_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -26,6 +43,7 @@ ActiveRecord::Schema.define(version: 20160221141954) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.text     "id_list"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

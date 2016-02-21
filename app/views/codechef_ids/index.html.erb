@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Codechef Ids</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @codechef_ids.each do |codechef_id| %>
+      <tr>
+        <td><%= codechef_id.username %></td>
+        <td><%= link_to 'Show', codechef_id %></td>
+        <td><%= link_to 'Edit', edit_codechef_id_path(codechef_id) %></td>
+        <td><%= link_to 'Destroy', codechef_id, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Codechef Id', new_codechef_id_path %>
