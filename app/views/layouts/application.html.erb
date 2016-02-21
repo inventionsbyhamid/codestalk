@@ -1,14 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CodechefAPP</title>
+  <% if content_for?(:title) %>
+      <%= yield :title %>
+  <% else %>
+  <title>Home | CodeStalk</title>
+  <% end %>
+  <meta charset="utf-8">
+  <meta name="robots" content="noodp">
+    <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#26c6da">
+
+  <meta name="revisit-after" content="7 days">
+  
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <!-- Font-Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <%= csrf_meta_tags %>
+
+  <!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <% if content_for?(:meta_og) %>
+      <%= yield :meta_og %>
+  <% else %>
+      <meta property="og:title" content="Home | CodeStalk" />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://codechef.herokuapp.com/" />
+  <% end %>
 </head>
-<body>
-
+<body class="cyan lighten-5">
+  <header>
+<nav>
+    <div class="nav-wrapper" >
+      <a href="<%= root_path %>" class="brand-logo center">CodeStalk</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <% if !user_signed_in? %>
+        <li><%= link_to 'Login',new_user_session_path %></li>
+        <% end %>
+        <% if user_signed_in? %> 
+        <li><%= link_to 'Logout',destroy_user_session_path,:method => :delete %></li>
+        <% end %>
+      </ul>
+      <ul class="side-nav" id="mobile-demo" >
+        <% if !user_signed_in? %>
+        <li><%= link_to 'Login',new_user_session_path %></li>
+        <% end %>
+        <% if user_signed_in? %> 
+        <li><%= link_to 'Logout',destroy_user_session_path,:method => :delete %></li>
+        <% end %>
+      </ul>
+    </div>    
+</nav>
+</header>
+<main>
+<div class="container">
 <%= yield %>
+</div>
+</main>
+<footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">CodeStalk</h5>
+          <div class="share-buttons">
+          <a href="https://www.facebook.com/inventionsbyhamid.java.h9k6"><i class="fa fa-facebook fa-lg"></i></a>
+          <a href="https://twitter.com/hamidInventions"><i class="fa fa-twitter fa-lg"></i></a>
+          <a href="https://www.linkedin.com/in/hamidsiddiquilinkedin"><i class="fa fa-linkedin fa-lg"></i></a>
+          <a href="https://github.com/inventionsbyhamid"><i class="fa fa-github fa-lg"></i></a>
+          <a href="https://www.instagram.com/inventionsbyhamid"><i class="fa fa-instagram fa-lg"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        Made with <i class="fa fa-heart"></i> by <a class="lime-text text-accent-2" href="https://twitter.com/hamidInventions">Hamid</a>
+        <%= link_to 'About',pages_about_path,:class=>"grey-text text-lighten-4 right" %>
+      </div>
+    </div>
+  </footer>
 
-</body>
+
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <% unless flash.empty? %>
+  <script>
+  <% if flash.notice %>
+  Materialize.toast('<%=flash.notice%>',5000);
+  <% else %>
+  Materialize.toast('<%=flash.alert%>',5000);
+  <% end %>
+  </script>
+  <% end %>
 </html>
