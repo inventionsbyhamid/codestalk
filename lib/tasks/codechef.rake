@@ -7,7 +7,7 @@ task :check_users=> :environment do
 			success = 1
 			until status == 200 do
 				begin
-					r = HTTParty.get(url,timeout: 10)
+					r = HTTParty.get(url,:verify => false,timeout: 10)
 					if r.code == 200
 						status = 200
 					end
