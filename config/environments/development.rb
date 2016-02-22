@@ -48,8 +48,8 @@ Rails.application.configure do
   :address => "smtp.sendgrid.net",
   :port => 587,
   :domain => "heroku.com",
-  :user_name => "app47292676@heroku.com",
-  :password => "wgcqdp396025",
+  :user_name => Rails.application.secrets.sendgrid_username,
+  :password => Rails.application.secrets.sendgrid_password,
   :authentication => :plain,
   :enable_starttls_auto => true
 }
