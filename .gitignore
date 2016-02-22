@@ -16,4 +16,4 @@
 !/log/.keep
 /tmp
 #ignore config files
-/config/*.yml
+/config/secrets.yml
