@@ -5,6 +5,7 @@ ruby "2.2.3"
 gem 'rails', '4.2.4'
 gem 'httparty'
 gem 'puma'
+gem 'newrelic_rpm', '~> 3.15', '>= 3.15.0.314'
 # Use sqlite3 as the database for Active Record
 
 # Use SCSS for stylesheets

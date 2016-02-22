@@ -93,6 +93,7 @@ GEM
     minitest (5.8.4)
     multi_json (1.11.2)
     multi_xml (0.5.5)
+    newrelic_rpm (3.15.0.314)
     nokogiri (1.6.7.2-x64-mingw32)
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
@@ -186,6 +187,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks (~> 2.1)
   materialize-sass
+  newrelic_rpm (~> 3.15, >= 3.15.0.314)
   nokogiri (~> 1.6, >= 1.6.7.2)
   pg
   puma
