@@ -13,7 +13,10 @@
  *= require_tree .
  *= require_self
  */
+@import "materialize/components/color";
+$link-color: color("red", "darken-4") !default;
 @import "materialize";
+
 /* for sticky footer */
 body {
     display: flex;
@@ -40,4 +43,10 @@ body {
         text-transform: uppercase;
         font-size: .8em;
     }
+}
+.container {
+a {
+&:hover{
+  color: color("red","accent-3");}
+}
 }

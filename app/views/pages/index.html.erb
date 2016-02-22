@@ -7,6 +7,11 @@
 <h4><%= link_to 'Start Stalking',new_codechef_id_path %></h4>
 </div>
 </div>
+<div class="col l6 offset-l3 m12 s12 center">
+<% @codechef_ids.each do |recent_id| %>
+<p><%= "Someone added #{recent_id.username} for tracking #{time_ago_in_words(recent_id.created_at)} ago"%></p>
+<% end %>
+</div>
 <% else %>
 <h3>Listing Codechef Ids</h3>
 <table>
