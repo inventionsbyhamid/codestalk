@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p> New submission for user <%= @codechef_id %> </p>
+    <p>Submissions for following problems were made:</p>
+    <% @diff.each do |link| %>
+    <p>  <%= raw link %> </p>
+    <% end %>
+  </body>
+</html>

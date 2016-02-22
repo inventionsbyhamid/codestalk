@@ -27,9 +27,20 @@ class CodechefIdsController < ApplicationController
   def create
     @codechef_id = CodechefId.new(codechef_id_params)
     @codechef_id.user = current_user
+
+    url = "https://www.codechef.com/users/#{@codechef_id.username}"
+    response = Nokogiri::HTML(HTTParty.get(url,:verify => false).body)
+    response = response.css('.profile a')
+    userSolvedProblems = []
+    response.each do | link |
+      link["href"] = "https://www.codechef.com#{link["href"]}"
+      userSolvedProblems.push(link.to_s)
+    end
+    @codechef_id.solved_problems = userSolvedProblems.join(';')
+
     respond_to do |format|
       if @codechef_id.save
-        format.html { redirect_to @codechef_id, notice: 'Codechef was successfully created.' }
+        format.html { redirect_to @codechef_id, notice: "#{@codechef_id.username} was successfully added." }
         format.json { render :show, status: :created, location: @codechef_id }
       else
         format.html { render :new }
@@ -43,7 +54,7 @@ class CodechefIdsController < ApplicationController
   def update
     respond_to do |format|
       if @codechef_id.update(codechef_id_params)
-        format.html { redirect_to @codechef_id, notice: 'Codechef was successfully updated.' }
+        format.html { redirect_to @codechef_id, notice: "#{@codechef_id.username} was successfully updated." }
         format.json { render :show, status: :ok, location: @codechef_id }
       else
         format.html { render :edit }
@@ -57,7 +68,7 @@ class CodechefIdsController < ApplicationController
   def destroy
     @codechef_id.destroy
     respond_to do |format|
-      format.html { redirect_to codechef_ids_url, notice: 'Codechef was successfully destroyed.' }
+      format.html { redirect_to codechef_ids_url, notice: "#{@codechef_id.username} was successfully deleted." }
       format.json { head :no_content }
     end
   end

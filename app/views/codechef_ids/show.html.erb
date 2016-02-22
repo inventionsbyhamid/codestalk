@@ -1,14 +1,12 @@
-<p id="notice"><%= notice %></p>
+  <h3 class="center"><%= @codechef_id.username %></h3>
 
-<p>
-  <strong>Username:</strong>
-  <%= @codechef_id.username %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @codechef_id.user.email %>
-</p>
+<ul class="collection with-header">
+<li class="collection-header"><h4>Solved Problems</h4>(other links in profile might be included at top)</li>
+<% @codechef_id.solved_problems.split(';').each do |link| %>
+<li class="collection-item"><%= raw link %></li>
+<% end %>
+</ul>
 
 <%= link_to 'Edit', edit_codechef_id_path(@codechef_id) %> |
 <%= link_to 'Back', codechef_ids_path %>
+      

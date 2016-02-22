@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160221181100) do
+ActiveRecord::Schema.define(version: 20160222094449) do
 
   create_table "codechef_ids", force: :cascade do |t|
     t.string   "username"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.text     "solved_problems"
   end
 
   add_index "codechef_ids", ["user_id"], name: "index_codechef_ids_on_user_id"
