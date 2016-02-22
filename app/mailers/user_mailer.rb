@@ -4,6 +4,6 @@ class UserMailer < ApplicationMailer
     @user = user
     @diff = diff
     @codechef_id = username
-    mail(to: user.email, subject: 'New submission from #{username}')
+    mail(to: user.email, subject: "New submission from #{username}")
   end
 end

@@ -3,9 +3,16 @@ task :check_users=> :environment do
 	users.each do |user|
 		user.codechef_ids.each do |codechef_id|
 			url = "https://www.codechef.com/users/#{codechef_id.username}"
-			r = HTTParty.get(url,:verify => false,timeout: 300)
-			until r.code == 200
-				r = HTTParty.get(url,:verify => false,timeout: 300)
+			status=1
+			until status == 200 do
+				begin
+					r = HTTParty.get(url,:verify => false,timeout: 10)
+					if r.code == 200
+						status = 200
+					end
+				rescue HTTParty::Error,Net::OpenTimeout, Net::ReadTimeout
+					puts "Error"
+				end
 			end
 			response = Nokogiri::HTML(r.body)
 			response = response.css('.profile a')
