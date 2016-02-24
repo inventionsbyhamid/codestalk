@@ -26,10 +26,10 @@
   <% if content_for?(:meta_og) %>
       <%= yield :meta_og %>
   <% else %>
-      <meta property="og:title" content="Home | CodeStalk" />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://codestalk.herokuapp.com/" />
-      <meta property="og:image "content="<%= image_url("codestalk.PNG")%>" />
+      <meta property="og:title" content="Home | CodeStalk"/>
+      <meta property="og:type" content="website"/>
+      <meta property="og:url" content="https://codestalk.herokuapp.com/"/>
+      <meta property="og:image" content="<%=image_url("codestalk.PNG")%>"/>
   <% end %>
 </head>
 <body>
