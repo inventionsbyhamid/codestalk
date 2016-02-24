@@ -29,7 +29,22 @@ class CodechefIdsController < ApplicationController
     @codechef_id.user = current_user
 
     url = "https://www.codechef.com/users/#{@codechef_id.username}"
-    response = Nokogiri::HTML(HTTParty.get(url,:verify => false).body)
+    status = 1
+    until status == 200 do
+      begin
+        r = HTTParty.get(url,:verify => false,timeout: 5,follow_redirects: false )
+        puts r.code
+      if r.code == 200
+        status = 200
+      elsif r.code == 302
+        redirect_to new_codechef_id_path , notice: "#{@codechef_id.username} is not a valid codechef id"
+        return
+      end
+      rescue HTTParty::Error,Net::OpenTimeout, Net::ReadTimeout
+        puts "Error"
+      end
+    end
+    response = Nokogiri::HTML(r.body)
     response = response.css('.profile a')
     userSolvedProblems = []
     response.each do | link |
