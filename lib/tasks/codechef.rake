@@ -10,13 +10,13 @@ task :check_users=> :environment do
 				if r.code == 200
 					status = 200
 				end
-				rescue URI::InvalidURIError
+			rescue URI::InvalidURIError
 					status = 200
 					success = 0
-				rescue HTTParty::Error,Net::OpenTimeout, Net::ReadTimeout
+			rescue HTTParty::Error,Net::OpenTimeout, Net::ReadTimeout
 					puts "Error"
-				end
 			end
+		end
 			if success >0
 				response = Nokogiri::HTML(r.body)
 				response = response.css('.profile a')
@@ -32,9 +32,9 @@ task :check_users=> :environment do
 				puts "No new submission for #{handle.username}"
 			else
 				puts "New submission for #{handle.username}"
+				handle.solved_problems = userSolvedLinks.join(';')
+				handle.save
 				handle.users.each do |user|
-					handle.solved_problems = userSolvedLinks.join(';')
-					handle.save
 					UserMailer.new_submission(user,diff,handle.username).deliver_now
 					puts "Email sent to #{user.email}"
 				end	
