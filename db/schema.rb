@@ -11,25 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222094449) do
+ActiveRecord::Schema.define(version: 20160319093313) do
 
-  create_table "codechef_ids", force: :cascade do |t|
+  create_table "handles", force: :cascade do |t|
     t.string   "username"
-    t.integer  "user_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.text     "solved_problems"
   end
 
-  add_index "codechef_ids", ["user_id"], name: "index_codechef_ids_on_user_id"
-
-  create_table "ids", force: :cascade do |t|
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "handles_users", id: false, force: :cascade do |t|
+    t.integer "handle_id", null: false
+    t.integer "user_id",   null: false
   end
 
-  add_index "ids", ["user_id"], name: "index_ids_on_user_id"
+  add_index "handles_users", ["handle_id", "user_id"], name: "index_handles_users_on_handle_id_and_user_id"
+  add_index "handles_users", ["user_id", "handle_id"], name: "index_handles_users_on_user_id_and_handle_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

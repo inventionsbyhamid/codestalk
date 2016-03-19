@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :codechef_ids
+  resources :handles
   get 'pages/index'
   get 'pages/about'
 

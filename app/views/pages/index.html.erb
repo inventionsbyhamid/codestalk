@@ -4,7 +4,7 @@
 <h3>Stalk your friends!</h3>
 <h5>Get email updates when someone solves a problem on codechef.com!</h5>
 <br>
-<h4><%= link_to 'Start Stalking',new_codechef_id_path %></h4>
+<h4><%= link_to 'Start Stalking',new_handle_path %></h4>
 </div>
 </div>
 <div class="col l6 offset-l3 m12 s12 center">
@@ -23,7 +23,7 @@
   </thead>
 
   <tbody>
-    <% current_user.codechef_ids.each do |codechef_id| %>
+    <% current_user.handles.each do |codechef_id| %>
       <tr>
         <td><%= codechef_id.username %></td>
         <td><%= link_to 'Show', codechef_id %></td>
@@ -35,5 +35,5 @@
 
 <br>
 
-<%= link_to 'New Codechef Id', new_codechef_id_path %>
+<%= link_to 'New Codechef Id', new_handle_path %>
 <% end %>

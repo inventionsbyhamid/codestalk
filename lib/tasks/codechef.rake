@@ -1,16 +1,15 @@
 task :check_users=> :environment do
-	users = User.all
-	users.each do |user|
-		user.codechef_ids.each do |codechef_id|
-			url = "https://www.codechef.com/users/#{codechef_id.username}"
-			status=1
-			success = 1
-			until status == 200 do
-				begin
-					r = HTTParty.get(url,:verify => false,timeout: 10)
-					if r.code == 200
-						status = 200
-					end
+	handles = Handle.all
+	handles.each do |handle|
+		url = "https://www.codechef.com/users/#{handle.username}"
+		status=1
+		success = 1
+		until status == 200 do
+			begin
+				r = HTTParty.get(url,:verify => false,timeout: 10)
+				if r.code == 200
+					status = 200
+				end
 				rescue URI::InvalidURIError
 					status = 200
 					success = 0
@@ -22,22 +21,25 @@ task :check_users=> :environment do
 				response = Nokogiri::HTML(r.body)
 				response = response.css('.profile a')
 				userSolvedLinks=Array.new
-				userSolvedProblems=codechef_id.solved_problems.split(';')
+				userSolvedProblems=handle.solved_problems.split(';')
 				len=0;
 				response.each do |link|
 					link["href"] = "https://www.codechef.com#{link["href"]}"
 					userSolvedLinks.push(link.to_s)
-				end
+			end
 				diff = userSolvedLinks-userSolvedProblems
-				if diff.empty?
-					puts "No new submission for #{codechef_id.username}"
-				else
-					puts "New submission for #{codechef_id.username}"
-					codechef_id.solved_problems = userSolvedLinks.join(';')
-					codechef_id.save
-					UserMailer.new_submission(user,diff,codechef_id.username).deliver_now
-				end
+			if diff.empty?
+				puts "No new submission for #{handle.username}"
+			else
+				puts "New submission for #{handle.username}"
+				handle.users.each do |user|
+					handle.solved_problems = userSolvedLinks.join(';')
+					handle.save
+					UserMailer.new_submission(user,diff,handle.username).deliver_now
+					puts "Email sent to #{user.email}"
+				end	
 			end
 		end
+		
 	end
 end
