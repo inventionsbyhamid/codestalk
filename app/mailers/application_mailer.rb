@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "admin@codestalk.herokuapp.com"
+  default from: "CodeStalk <admin@codestalk.herokuapp.com>"
   layout 'mailer'
 end

@@ -1,7 +1,11 @@
 task :check_users=> :environment do
 	handles = Handle.all
 	handles.each do |handle|
-		url = "https://www.codechef.com/users/#{handle.username}"
+		if handle.team == true
+			url = "https://www.codechef.com/teams/view/#{handle.username}"
+		else
+			url = "https://www.codechef.com/users/#{handle.username}"
+		end
 		status=1
 		success = 1
 		until status == 200 do
@@ -19,13 +23,17 @@ task :check_users=> :environment do
 		end
 			if success >0
 				response = Nokogiri::HTML(r.body)
-				response = response.css('.profile a')
+				response = response.css('.content-wrapper a')
 				userSolvedLinks=Array.new
 				userSolvedProblems=handle.solved_problems.split(';')
 				len=0;
 				response.each do |link|
 					link["href"] = "https://www.codechef.com#{link["href"]}"
+					if link["href"].include?("users") && handle.team == true
+					;
+					else
 					userSolvedLinks.push(link.to_s)
+				    end
 			end
 				diff = userSolvedLinks-userSolvedProblems
 			if diff.empty?

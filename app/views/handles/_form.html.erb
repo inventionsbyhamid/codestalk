@@ -15,9 +15,20 @@
     <%= f.label :username %><br>
     <%= f.text_field :username,required: true %>
   </div>
+  <p>Adding Team?</p>
+    <div class="switch">
+      <label>
+        No
+      <%= f.check_box :team %>
+      <span class="lever"></span>
+        Yes (Add team handle and not team name. Team handle is shown on team profile page.)
+      </label>
+    </div>
+    <br>
   
   <div class="actions">
     <button class="btn waves-effect waves-light" type="submit" name="action">Start Stalking!
             <i class="material-icons right">send</i>
   </div>
+  <br>
 <% end %>

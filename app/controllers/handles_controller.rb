@@ -38,8 +38,11 @@ class HandlesController < ApplicationController
     else
     @codechef_id = Handle.new(handle_params)
     @codechef_id.users<<current_user
-
-    url = "https://www.codechef.com/users/#{@codechef_id.username}"
+    if @codechef_id[:team] == true
+      url = "https://www.codechef.com/teams/view/#{@codechef_id.username}"
+    else
+      url = "https://www.codechef.com/users/#{@codechef_id.username}"
+    end
     status = 1
     until status == 200 do
       begin
@@ -56,11 +59,15 @@ class HandlesController < ApplicationController
       end
     end
     response = Nokogiri::HTML(r.body)
-    response = response.css('.profile a')
+    response = response.css('.content-wrapper a')
     userSolvedProblems = []
     response.each do | link |
       link["href"] = "https://www.codechef.com#{link["href"]}"
+      if link["href"].include?("users") && @codechef_id.team == true
+        ;
+      else
       userSolvedProblems.push(link.to_s)
+      end
     end
     @codechef_id.solved_problems = userSolvedProblems.join(';')
 
@@ -114,6 +121,6 @@ class HandlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def handle_params
-      params.require(:handle).permit(:username)
+      params.require(:handle).permit(:username,:team)
     end
 end

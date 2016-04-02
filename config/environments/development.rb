@@ -43,7 +43,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'http://localhost:3000' }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_options = {from: 'inventionsbyhamid@gmail.com'}
+  config.action_mailer.default_options = {from: 'CodeStalk <inventionsbyhamid@gmail.com>'}
   ActionMailer::Base.smtp_settings = {
   :address => "smtp.sendgrid.net",
   :port => 587,
