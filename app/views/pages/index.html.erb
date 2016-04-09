@@ -13,7 +13,12 @@
 <% end %>
 </div>
 <% else %>
+<br>
+<br>
+<div class="row">
+<div class="card col l10 offset-l1 m12 s12">
 <h3>Listing Codechef Ids</h3>
+<h5><%= link_to 'New Codechef Id', new_handle_path %></h5>
 <table>
   <thead>
     <tr>
@@ -34,8 +39,7 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
-
-<%= link_to 'New Codechef Id', new_handle_path %>
+</div>
+</div>
 <% end %>
