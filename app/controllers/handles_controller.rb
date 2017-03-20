@@ -59,7 +59,7 @@ class HandlesController < ApplicationController
       end
     end
     response = Nokogiri::HTML(r.body)
-    response = response.css('.content-wrapper a')
+    response = response.css('article p a')
     userSolvedProblems = []
     response.each do | link |
       link["href"] = "https://www.codechef.com#{link["href"]}"

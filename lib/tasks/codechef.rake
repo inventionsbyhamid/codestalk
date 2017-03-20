@@ -23,7 +23,7 @@ task :check_users=> :environment do
 		end
 			if success >0
 				response = Nokogiri::HTML(r.body)
-				response = response.css('.content-wrapper a')
+				response = response.css('article p a')
 				userSolvedLinks=Array.new
 				userSolvedProblems=handle.solved_problems.split(';')
 				len=0;
